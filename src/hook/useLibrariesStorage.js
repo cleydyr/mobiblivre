@@ -1,5 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import getStoredData from "../storage";
+import { getLibraries } from "../service/library";
+
+function getLibrariesStateIdentifier(libraries) {
+  return libraries.reduce((acc, cur) => `${acc}#${cur.id}`, "");
+}
 
 export const LibraryContext = createContext();
 
@@ -10,15 +14,15 @@ export const WithLibraryContext = ({ children }) => {
 
     useEffect(() => {
         async function getData() {
-            const { libraries } = await getStoredData() || {};
+            const libraries = await getLibraries();
 
-            setLibraries(libraries || []);
+            setLibraries(libraries);
 
             setLoading(false);
         }
 
         getData();
-    }, [libraries, loading]);
+    }, [getLibrariesStateIdentifier(libraries), loading]);
 
     return (
         <LibraryContext.Provider value={{

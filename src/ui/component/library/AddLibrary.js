@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Switch, Text, TextInput } from "react-native-paper";
 
-export default () => {
+export default ({onSave, onCancel}) => {
   const [name, setName] = useState('');
   const [url, setURL] = useState('');
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -20,26 +20,30 @@ export default () => {
       }}>
 
       <TextInput
-        label="Nome"
+        label="Nome*"
         value={name}
         onChangeText={setName}
         style={styles.formField}
       />
 
       <TextInput
-        label="URL"
+        label="URL*"
         value={url}
         onChangeText={setURL}
         placeholder="exemplo: https://minhabiblioteca.biblivre.cloud"
         style={styles.formField}
       />
 
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      }}>
-        <Text style={[
+      <View style={
+        [
           styles.formField,
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }
+        ]
+      }>
+        <Text style={[
           {
             fontWeight: "600",
             fontSize: 20,
@@ -51,13 +55,13 @@ export default () => {
         isAuthenticated
         && <>
           <TextInput
-            label="Usuário"
+            label="Usuário*"
             value={userName}
             onChangeText={setUserName}
             style={styles.formField}
           />
           <TextInput
-            label="Senha"
+            label="Senha*"
             value={password}
             secureTextEntry={!isShowPassword}
             onChangeText={setPassword}
@@ -67,7 +71,17 @@ export default () => {
         </>
       }
 
-      <Button style={styles.formField} mode="contained" >Salvar</Button>
+      <View style={
+        [
+          styles.formField,
+          {
+            flexDirection: 'row',
+            justifyContent: "flex-end",
+          }
+        ]}>
+        <Button style={styles.formField} mode="outlined" onPress={onCancel} >Cancelar</Button>
+        <Button style={styles.formField} mode="contained" onPress={() => onSave({name, url, isAuthenticated, userName, password})} >Salvar</Button>
+      </View>
     </View>
   );
 }

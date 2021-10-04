@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button, Headline } from 'react-native-paper';
 
-export default ({handleCreateNewLibrary}) => {
+export default ({onCreateNewLibrary}) => {
     return (
         <View style={{
             flex: 1,
@@ -10,7 +10,7 @@ export default ({handleCreateNewLibrary}) => {
             alignItems: "center",
           }}>
             <Headline>Nenhuma biblioteca cadastrada</Headline>
-            <Button mode="contained" onPress={handleCreateNewLibrary} >
+            <Button mode="contained" onPress={onCreateNewLibrary} >
                 Cadastrar nova biblioteca
             </Button>
         </View>
