@@ -17,6 +17,6 @@ export default ({navigation}) => {
   };
 
   return (
-    <AddLibrary onSave={handleSaveLibrary} onCancel={() => navigation.navigate('list-library')}/>
+    <AddLibrary onSave={handleSaveLibrary} onCancel={() => navigation.goBack()}/>
   )
 }
