@@ -4,18 +4,21 @@ import { View } from "react-native";
 import { Provider } from "react-native-paper";
 import { WithLibraryContext } from "./hook/useLibrariesStorage";
 import LibraryScreen from "./ui/component/library/Screen";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
     <WithLibraryContext>
       <Provider>
-        <View style={{
-          flex: 1,
-          marginTop: 32,
-          paddingHorizontal: 16,
-        }}>
-          <LibraryScreen />
-        </View>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Bibiliotecas" component={LibraryScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     </WithLibraryContext>
   );

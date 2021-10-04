@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FAB, List } from 'react-native-paper';
+import { List } from 'react-native-paper';
+import AddButton from '../AddButton';
 
 export default ({libraries, onLibraryPress}) => {
     return (
@@ -16,6 +17,7 @@ export default ({libraries, onLibraryPress}) => {
                     />
                 )
             }
+            <AddButton />
         </View>
     );
 }

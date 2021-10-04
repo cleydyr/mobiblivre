@@ -13,8 +13,6 @@ export default () => {
         <View style={{
             flex: 1,
         }}>
-            <Title>Bibliotecas</Title>
-
             {
                 loading
                 ? <ActivityIndicator animating={true} />
