@@ -1,6 +1,5 @@
 import { registerRootComponent } from "expo";
 import * as React from "react";
-import { View } from "react-native";
 import { Provider } from "react-native-paper";
 import { WithLibraryContext } from "./hook/useLibrariesStorage";
 import LibraryScreen from "./ui/component/library/Screen";

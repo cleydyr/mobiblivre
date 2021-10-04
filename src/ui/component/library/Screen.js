@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator, Title } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import { LibraryContext } from '../../../hook/useLibrariesStorage';
 import AddButton from '../AddButton';
 import LibraryList from './LibraryList';
