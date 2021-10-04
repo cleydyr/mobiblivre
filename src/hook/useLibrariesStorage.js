@@ -18,7 +18,7 @@ export const WithLibraryContext = ({ children }) => {
         }
 
         getData();
-    }, [libraries]);
+    }, [libraries, loading]);
 
     return (
         <LibraryContext.Provider value={{
