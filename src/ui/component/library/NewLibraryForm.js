@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 import { Button, Switch, Text, TextInput } from "react-native-paper";
 
 export default ({onSave, onCancel}) => {
-  const [name, setName] = useState('');
   const [url, setURL] = useState('');
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [userName, setUserName] = useState('');
@@ -18,13 +17,6 @@ export default ({onSave, onCancel}) => {
       style={{
         flex: 1,
       }}>
-
-      <TextInput
-        label="Nome*"
-        value={name}
-        onChangeText={setName}
-        style={styles.formField}
-      />
 
       <TextInput
         label="URL*"
@@ -80,7 +72,7 @@ export default ({onSave, onCancel}) => {
           }
         ]}>
         <Button style={styles.formField} mode="outlined" onPress={onCancel} >Cancelar</Button>
-        <Button style={styles.formField} mode="contained" onPress={() => onSave({name, url, isAuthenticated, userName, password})} >Salvar</Button>
+        <Button style={styles.formField} mode="contained" onPress={() => onSave({url, isAuthenticated, userName, password})} >Salvar</Button>
       </View>
     </View>
   );

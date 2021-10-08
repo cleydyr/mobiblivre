@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddLibraryScreen from "./ui/component/library/NewLibraryScreen";
 import store from './store';
-import { Provider as ReduxProvider, useDispatch } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 

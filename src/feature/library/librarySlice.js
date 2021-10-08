@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getLibraries, addLibrary as serviceAddLibrary } from '../../service/library';
+import { getLibraries, addLibrary as serviceAddLibrary, getLibraryData } from '../../service/library';
 import { startLoading, stopLoading } from '../loading/loadingSlice';
 
 export const librarySlice = createSlice({
@@ -41,7 +41,13 @@ export const addLibraryAsync = library => async dispatch => {
 
   dispatch(startLoading(owner));
 
-  const libraries = await serviceAddLibrary(library);
+  const { title, subtitle } = await getLibraryData(library.url);
+
+  const libraries = await serviceAddLibrary({
+    ...library,
+    title,
+    subtitle
+  });
 
   dispatch(librarySlice.actions.setLibraries(libraries));
 
