@@ -5,6 +5,7 @@
     "@react-navigation/native-stack": "^6.2.2",
     "@reduxjs/toolkit": "^1.6.2",
     "expo": "~42.0.0",
+    "html-entities": "^2.3.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -13,7 +14,9 @@
     "react-native-screens": "~3.4.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "react-redux": "^7.2.5"
+    "react-redux": "^7.2.5",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.32"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
