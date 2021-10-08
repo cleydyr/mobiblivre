@@ -1,17 +1,13 @@
 import React from "react";
-import { addLibrary } from "../../../service/library";
+import { useDispatch } from "react-redux";
+import { addLibraryAsync } from "../../../feature/library/librarySlice";
 import AddLibrary from "./AddLibrary";
 
 export default ({navigation}) => {
-  const handleSaveLibrary = async ({
-    name,
-    url,
-    isAuthenticated,
-    userName,
-    password,
-  }) => {
-    
-    await addLibrary({name, url, isAuthenticated, userName, password});
+  const dispatch = useDispatch();
+
+  const handleSaveLibrary = async (library) => {
+    dispatch(addLibraryAsync(library));
 
     navigation.goBack();
   };

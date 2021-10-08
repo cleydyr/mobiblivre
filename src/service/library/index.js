@@ -30,5 +30,5 @@ export async function addLibrary({
 
   await setStoredData(newData);
 
-  return currentData.libraries;
+  return newData.libraries;
 }
