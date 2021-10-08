@@ -5,7 +5,7 @@ import { WithLibraryContext } from "./hook/useLibrariesStorage";
 import LibrariesScreen from "./ui/component/library/LibrariesScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AddLibraryScreen from "./ui/component/library/AddLibraryScreen";
+import AddLibraryScreen from "./ui/component/library/NewLibraryScreen";
 import store from './store';
 import { Provider as ReduxProvider, useDispatch } from "react-redux";
 

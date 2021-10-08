@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addLibraryAsync } from "../../../feature/library/librarySlice";
-import AddLibrary from "./AddLibrary";
+import AddLibrary from "./NewLibraryForm";
 
 export default ({navigation}) => {
   const dispatch = useDispatch();
