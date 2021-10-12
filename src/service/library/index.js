@@ -1,6 +1,15 @@
 import { getStoredData, setStoredData } from "../../storage";
 import { fetchAndselect } from "../../util/parser/html/htmlParser";
 
+const actions = {
+  SEARCH: 'search',
+  PAGINATE: 'paginate',
+};
+
+const modules = {
+  CATALOGING_BIBLIOGRAPHIC: 'cataloging.bibliographic',
+};
+
 export async function getLibraries() {
   const { libraries } = await getStoredData();
 
@@ -10,7 +19,7 @@ export async function getLibraries() {
 export async function addLibrary(library) {
   const currentData = await getStoredData();
 
-  const {libraries} = currentData;
+  const { libraries } = currentData;
 
   const latestId = libraries
     .reduce(
@@ -20,7 +29,7 @@ export async function addLibrary(library) {
 
   const newData = {
     ...currentData,
-    libraries: [...currentData.libraries, {...library, id: latestId + 1}],
+    libraries: [...currentData.libraries, { ...library, id: latestId + 1 }],
   };
 
   await setStoredData(newData);
@@ -41,4 +50,52 @@ export async function getLibraryData(url) {
     title,
     subtitle,
   };
+}
+
+async function fetchJSONFromServer(host, module, action, otherParams) {
+  const response = await fetch(host, {
+    method: 'POST',
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: new URLSearchParams({
+      controller: 'json',
+      module,
+      action,
+      ...otherParams
+    }).toString(),
+  });
+
+  return response.json();
+}
+
+export async function getCatalographicSearchResults(host, query) {
+  const result = fetchJSONFromServer(
+    host,
+    modules.CATALOGING_BIBLIOGRAPHIC,
+    actions.SEARCH,
+    {
+      search_parameters: JSON.stringify({
+        database: 'main',
+        material_type: 'all',
+        search_mode: query ? 'simple' : 'list_all',
+        search_terms: query ? [{ query }] : undefined,
+      })
+    });
+
+  return result;
+}
+
+export async function paginateCatalographicSearchResults(host, search_id, page) {
+  const result = fetchJSONFromServer(
+    host,
+    modules.CATALOGING_BIBLIOGRAPHIC,
+    actions.PAGINATE,
+    {
+      page,
+      search_id,
+    }
+  );
+
+  return result;
 }

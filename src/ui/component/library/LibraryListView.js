@@ -6,16 +6,20 @@ export default ({ libraries, onLibraryPress }) => {
   return (
     <View>
       {
-        libraries.map(({ title, subtitle, id }) =>
-          <List.Item
-            description={subtitle}
-            key={id}
-            left={() => <List.Icon icon="book" />}
-            onPress={() => onLibraryPress(id)}
-            title={title}
-          />
-        )
-      }
+        libraries.map(library => {
+          const { title, subtitle, id } = library;
+
+          return (
+            <List.Item
+              description={subtitle}
+              key={id}
+              left={() => <List.Icon icon="book" />}
+              onPress={() => onLibraryPress(library)}
+              title={title}
+            />
+          );
+      })
+    }
     </View>
   );
 }
