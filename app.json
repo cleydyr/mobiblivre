@@ -1,0 +1,16 @@
+{
+  "expo": {
+   "name": "MoBiblivre",
+   "icon": "./resources/images/logo.png",
+   "version": "0.0.1",
+   "slug": "mobiblivre",
+   "ios": {
+     "bundleIdentifier": "br.org.biblivre.mobiblivre",
+     "buildNumber": "0.0.1"
+   },
+   "android": {
+     "package": "br.org.biblivre.mobiblivre",
+     "versionCode": 1
+   }
+  }
+}

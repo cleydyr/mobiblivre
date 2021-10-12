@@ -18,9 +18,9 @@ export const searchSlice = createSlice({
   initialState,
 
   reducers: {
-    setLibrary: (state, { payload }) => {
+    setLibrary: (_state, { payload }) => {
       return {
-        ...state,
+        ...initialState,
         library: payload,
       };
     },
@@ -79,21 +79,37 @@ export const loadSearchResults = keywords => async (dispatch, getState) => {
 
   const { search: { library: { url } } } = getState();
 
-  const result = await getCatalographicSearchResults(url, keywords);
+  try {
+    const result = await getCatalographicSearchResults(url, keywords);
 
-  const records = result.success ? result.search.data : [];
+    if (result.success) {
+      const records = result.search.data;
 
-  batch(() => {
-    dispatch(setSearchPerformed(true));
+      batch(() => {
+        dispatch(setSearchPerformed(true));
 
-    dispatch(setRecords(records));
+        dispatch(setRecords(records));
 
-    dispatch(setSearchId(result.success && result.search.id));
+        dispatch(setSearchId(result.success && result.search.id));
 
-    dispatch(setPageCount(result.search.page_count));
+        dispatch(setPageCount(result.search.page_count));
+      });
+    }
+    else {
+      batch(() => {
+        dispatch(setSearchPerformed(true));
 
-    dispatch(stopLoading(owner));
-  });
+        dispatch(setRecords([]));
+      });
+    }
+
+
+  }
+  catch (e) {
+    //TODO handle error
+  }
+
+  dispatch(stopLoading(owner));
 }
 
 export const loadMoreSearchResults = async (dispatch, getState) => {

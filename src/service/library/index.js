@@ -53,6 +53,8 @@ export async function getLibraryData(url) {
 }
 
 async function fetchJSONFromServer(host, module, action, otherParams) {
+  console.log(JSON.stringify(arguments));
+
   const response = await fetch(host, {
     method: 'POST',
     headers: {
