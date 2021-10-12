@@ -3,10 +3,13 @@
 A mobile app for the Biblivre OPAC.
 
 ## Available features
-None yet
+* Multiple library record
 
 ## Roadmap
-* Multiple library record
+* Predefined (favorite) library
 * Authentication
-* Catalog search (bibliographic, vocabulary, authorities)
+* Catalog search
+** bibliographic
+** vocabulary
+** authorities
 * Self-reservation
