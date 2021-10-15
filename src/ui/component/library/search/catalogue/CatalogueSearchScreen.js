@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';
 import CatalogueSearchForm from './CatalogueSearchForm';
 import CatalogueSearchListItem from './CatalogueSearchListItem';
+import NoRecordsFoundView from './NoRecordsFoundView';
 
 function renderItem({
   item: {
@@ -52,29 +53,16 @@ export default ({ navigation }) => {
     >
       {
         searchPerformed && !records.length
-          ? <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: 8,
-              }}
-            >
-                <Avatar.Icon size={144} icon="book-remove" style={{
-                  backgroundColor: 'rgba(52, 52, 52, 0.2)',
-                  margin: 16
-                }}/>
-              <Headline style={{textAlign: 'center'}}>Nenhum resultado encontrado</Headline>
-            </View>
+          ? <NoRecordsFoundView />
           : <FlatList
-              style={styles.formField}
-              data={records}
-              renderItem={renderItem}
-              keyExtractor={keyExtractor}
-              onEndReached={handleLoadMore}
-              onEndReachedThreshold={0.8}
-              maxToRenderPerBatch={8}
-            />
+            style={styles.formField}
+            data={records}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+            onEndReached={handleLoadMore}
+            onEndReachedThreshold={0.8}
+            maxToRenderPerBatch={8}
+          />
       }
     </CatalogueSearchForm>
   );
