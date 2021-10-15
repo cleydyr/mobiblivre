@@ -1,10 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator, FAB } from 'react-native-paper';
+import { ActivityIndicator} from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadLibraries } from '../../../feature/library/librarySlice';
 import { setLibrary } from '../../../feature/search/searchSlice';
-import { resetStorage } from '../../../storage';
 import AddButton from '../AddButton';
 import LibraryList from './LibraryListView';
 import NoLibrary from './NoLibraryView';
