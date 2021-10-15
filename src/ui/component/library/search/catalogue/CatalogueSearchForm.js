@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, List, TextInput } from 'react-native-paper';
+import { Button, List, Searchbar, TextInput } from 'react-native-paper';
 
 export default (
   {
@@ -18,11 +18,10 @@ export default (
         justifyContent: 'center',
       }}>
 
-      <TextInput
-        label={"Palavra(s) chave(s)"}
-        value={keywords}
+      <Searchbar
         onChangeText={setKeywords}
         placeholder="exemplo: Harry Potter"
+        value={keywords}
         style={[
           styles.formField,
           {
