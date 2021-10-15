@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, List, Searchbar, TextInput } from 'react-native-paper';
+import { Button, Searchbar } from 'react-native-paper';
 
 export default (
   {

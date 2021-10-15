@@ -6,9 +6,6 @@ const ListItem = ({ author, title }) => {
     <List.Item
       description={author}
       title={title}
-      style={{
-        borderBottomWidth: 0.3
-      }}
     />
   );
 }

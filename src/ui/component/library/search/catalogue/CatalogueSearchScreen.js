@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { Avatar, Headline } from 'react-native-paper';
+import { FlatList, StyleSheet } from 'react-native';
+import { Divider } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';
 import CatalogueSearchForm from './CatalogueSearchForm';
@@ -62,6 +62,7 @@ export default ({ navigation }) => {
             onEndReached={handleLoadMore}
             onEndReachedThreshold={0.8}
             maxToRenderPerBatch={8}
+            ItemSeparatorComponent={Divider}
           />
       }
     </CatalogueSearchForm>
@@ -70,6 +71,7 @@ export default ({ navigation }) => {
 
 const styles = StyleSheet.create({
   formField: {
-    margin: 8,
+    marginLeft: 8,
+    marginRight: 8,
   }
 });
