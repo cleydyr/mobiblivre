@@ -4,10 +4,12 @@ import { fetchAndselect } from "../../util/parser/html/htmlParser";
 const actions = {
   SEARCH: 'search',
   PAGINATE: 'paginate',
+  PING: 'ping',
 };
 
 const modules = {
   CATALOGING_BIBLIOGRAPHIC: 'cataloging.bibliographic',
+  MENU: 'menu',
 };
 
 export async function getLibraries() {
@@ -100,4 +102,19 @@ export async function paginateCatalographicSearchResults(host, search_id, page) 
   );
 
   return result;
+}
+
+export async function pingServer(host) {
+  try {
+    await fetchJSONFromServer(
+      host,
+      modules.MENU,
+      actions.PING
+    );
+
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
 }
