@@ -14,7 +14,7 @@ export default ({ navigation }) => {
 
   const libraries = useSelector(state => state.library.libraries);
   const loading = useSelector(state => state.loading.status);
-  
+
   const handleLibraryPress = (library) => {
     dispatch(setLibrary(library));
 
@@ -35,19 +35,7 @@ export default ({ navigation }) => {
         }
 
       </View>
-      <FAB
-        icon="delete"
-        onPress={() => {
-          resetStorage();
-          dispatch(loadLibraries);
-        }}
-        style={{
-          position: 'absolute',
-          margin: 16,
-          left: 0,
-          bottom: 0,
-        }}
-      />
+
       <AddButton onPress={() => navigation.navigate('add-library')} />
     </>
   );
