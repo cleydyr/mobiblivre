@@ -5,6 +5,7 @@ const actions = {
   SEARCH: 'search',
   PAGINATE: 'paginate',
   PING: 'ping',
+  OPEN: 'open',
 };
 
 const modules = {
@@ -117,4 +118,15 @@ export async function pingServer(host) {
   catch (e) {
     return false;
   }
+}
+
+export async function openBibliographicRecord(host, recordId) {
+  return await fetchJSONFromServer(
+    host,
+    modules.CATALOGING_BIBLIOGRAPHIC,
+    actions.OPEN,
+    {
+      id: recordId
+    }
+  );
 }
