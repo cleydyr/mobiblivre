@@ -52,10 +52,6 @@ export default ({ navigation }) => {
     setCardData(cardData.data);
   }
 
-  console.log(`render search screen with ${records.length} records`);
-  console.log(`loading: ${loading}`);
-  console.log(`searchPerformed: ${searchPerformed}`);
-
   return (
     <>
       <Portal>

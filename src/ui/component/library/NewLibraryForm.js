@@ -17,8 +17,6 @@ export default ({ onSave, onCancel }) => {
     try {
       const goodURL = new URL(url);
 
-      console.log(goodURL.protocol);
-
       return (goodURL.protocol === 'http:' || goodURL.protocol === 'https:')
     }
     catch (e) { console.log(e) }

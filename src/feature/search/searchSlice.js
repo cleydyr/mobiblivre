@@ -115,8 +115,6 @@ export const loadSearchResults = keywords => async (dispatch, getState) => {
 export const loadMoreSearchResults = async (dispatch, getState) => {
   const { search: { library: { url }, page, searchId, pageCount } } = getState();
 
-  console.log('loading more');
-
   if (page === pageCount) {
     return;
   }
