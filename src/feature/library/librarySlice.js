@@ -41,12 +41,13 @@ export const addLibraryAsync = library => async dispatch => {
 
   dispatch(startLoading(owner));
 
-  const { title, subtitle } = await getLibraryData(library.url);
+  const { title, subtitle, i18n } = await getLibraryData(library.url);
 
   const libraries = await serviceAddLibrary({
     ...library,
     title,
-    subtitle
+    subtitle,
+    i18n
   });
 
   dispatch(librarySlice.actions.setLibraries(libraries));

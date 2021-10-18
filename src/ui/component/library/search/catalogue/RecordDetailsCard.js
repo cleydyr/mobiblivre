@@ -1,6 +1,6 @@
-import React from "react";
-import { View } from "react-native";
-import { Button, Card, Divider, IconButton, Text } from "react-native-paper";
+import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
+import { Button, Card, Divider, IconButton, List, Text, Title } from "react-native-paper";
 import {
   useFonts,
   WorkSans_100Thin,
@@ -62,8 +62,10 @@ export default (
     publication_year,
     shelf_location,
     isbn,
+    fields,
     onBackPress,
-    baseUrl
+    baseUrl,
+    i18n,
   }
 ) => {
   let [fontsLoaded] = useFonts({
@@ -89,63 +91,86 @@ export default (
 
   return (
     <Card>
-      <Card.Cover
-        source={{ uri: attachments ? attachments.length && baseUrl + attachments[0].uri : undefined }}
-        resizeMode="contain"
-      />
-      <Card.Content>
-        <View>
-          <View
-            style={{
-              marginBottom: 8,
-            }}
-          >
-            <Text
+      <ScrollView>
+        <Card.Cover
+          source={{ uri: (attachments && attachments.length) ? (baseUrl + attachments[0].uri) : undefined }}
+          resizeMode="contain"
+        />
+        <Card.Content>
+          <View>
+            <View
               style={{
-                color: '#232F34',
-                fontFamily: 'WorkSans_700Bold',
-                fontSize: 21,
+                marginBottom: 8,
               }}
             >
-              {title}
-            </Text>
-            <Text
+              <Text
+                style={{
+                  color: '#232F34',
+                  fontFamily: 'WorkSans_700Bold',
+                  fontSize: 21,
+                }}
+              >
+                {title}
+              </Text>
+              <Text
+                style={{
+                  color: '#232F34',
+                  fontFamily: 'WorkSans_400Regular',
+                  fontSize: 17,
+                }}
+              >
+                {author}
+              </Text>
+            </View>
+            <Divider />
+            <View
               style={{
-                color: '#232F34',
-                fontFamily: 'WorkSans_400Regular',
-                fontSize: 17,
+                marginTop: 8,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: 8,
               }}
             >
-              {author}
-            </Text>
-          </View>
-          <Divider />
-          <View
-            style={{
-              marginTop: 8,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 8,
-            }}
-          >
-            <View>
-              <CardMetadata name="Ano de Publicação" value={publication_year} />
-              <CardMetadata name="Localização" value={shelf_location} />
-              <CardMetadata name="ISBN" value={isbn} />
+              <View>
+                <CardMetadata name="Ano de Publicação" value={publication_year} />
+                <CardMetadata name="Localização" value={shelf_location} />
+                <CardMetadata name="ISBN" value={isbn} />
+              </View>
+              <View>
+                <CardMetadata name="Disponíveis" value={holdings_available} />
+                <CardMetadata name="Emprestados" value={holdings_lent} />
+                <CardMetadata name="Reservados" value={holdings_reserved} />
+              </View>
             </View>
-            <View>
-              <CardMetadata name="Disponíveis" value={holdings_available} />
-              <CardMetadata name="Emprestados" value={holdings_lent} />
-              <CardMetadata name="Reservados" value={holdings_reserved} />
-            </View>
+            <Divider />
+            <List.Accordion
+              title="Outros metadados"
+              style={{
+                backgroundColor: 'white',
+                margin: -8
+              }}
+            >
+              <View
+                style={{
+                  marginTop: 8,
+                  marginBottom: 8,
+                }}
+              >
+                {
+                  fields.map(field => {
+                    return (
+                      <CardMetadata name={i18n[`cataloging.tab.record.custom.field_label.biblio_${field.datafield}`]} value={field.value} />
+                    )
+                  })
+                }
+              </View>
+            </List.Accordion>
           </View>
-        </View>
-        <Divider />
-      </Card.Content>
-      <Card.Actions style={{ marginTop: 20 }}>
-        <Button onPress={onBackPress}>Voltar</Button>
-        <Button style={{ marginRight: 8 }}>Mostrar mais</Button>
-      </Card.Actions>
+        </Card.Content>
+        <Card.Actions style={{ marginTop: 20 }}>
+          <Button onPress={onBackPress}>Voltar</Button>
+        </Card.Actions>
+      </ScrollView>
     </Card>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Badge, Button, Card, Divider, Headline, Modal, Portal, Subheading, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import { startLoading, stopLoading } from '../../../../../feature/loading/loadingSlice';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';
 import { openBibliographicRecord } from '../../../../../service/library';
 import CatalogueSearchForm from './CatalogueSearchForm';
@@ -23,7 +24,7 @@ export default ({ navigation }) => {
   const {
     records,
     searchPerformed,
-    library: { url },
+    library: { url, i18n },
   } = useSelector(state => state.search);
 
   const [isShowRecordCard, setShowRecordCard] = useState(false);
@@ -45,18 +46,24 @@ export default ({ navigation }) => {
   }
 
   const onListItemPress = async (recordId) => {
-    setShowRecordCard(true);
+    const owner = 'open-record';
+
+    dispatch(startLoading(owner));
 
     const cardData = await openBibliographicRecord(url, recordId);
 
+    setShowRecordCard(true);
+
     setCardData(cardData.data);
+
+    dispatch(stopLoading(owner));
   }
 
   return (
     <>
       <Portal>
         <Modal visible={isShowRecordCard} onDismiss={() => setShowRecordCard(false)} >
-          <RecordDetailsCard {...cardData} onBackPress={() => setShowRecordCard(false)} baseUrl={url} />
+          {isShowRecordCard && <RecordDetailsCard {...cardData} onBackPress={() => setShowRecordCard(false)} baseUrl={url} i18n={i18n} />}
         </Modal>
       </Portal>
 
