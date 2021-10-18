@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import { ActivityIndicator, Card, Divider, Headline, Modal, Portal, Subheading } from 'react-native-paper';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Badge, Button, Card, Divider, Headline, Modal, Portal, Subheading, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';
 import { openBibliographicRecord } from '../../../../../service/library';
 import CatalogueSearchForm from './CatalogueSearchForm';
 import CatalogueSearchListItem from './CatalogueSearchListItem';
 import NoRecordsFoundView from './NoRecordsFoundView';
+import RecordDetailsCard from './RecordDetailsCard';
 
 const renderItem = (onListItemPress) => ({ item }) => {
   return <CatalogueSearchListItem {...item} onListItemPress={onListItemPress} />;
@@ -45,7 +46,7 @@ export default ({ navigation }) => {
 
   const onListItemPress = async (recordId) => {
     setShowRecordCard(true);
-    
+
     const cardData = await openBibliographicRecord(url, recordId);
 
     setCardData(cardData.data);
@@ -59,17 +60,7 @@ export default ({ navigation }) => {
     <>
       <Portal>
         <Modal visible={isShowRecordCard} onDismiss={() => setShowRecordCard(false)} >
-          <Card>
-            <Card.Cover
-              source={{ uri: cardData.attachments && cardData.attachments.length && url + cardData.attachments[0].uri }}
-              defaultSource={{uri: "resources/images/logo.png"}}
-              resizeMode="contain"
-            />
-            <Card.Content>
-              <Headline>{cardData.title}</Headline>
-              <Subheading>{cardData.author}</Subheading>
-            </Card.Content>
-          </Card>
+          <RecordDetailsCard {...cardData} onBackPress={() => setShowRecordCard(false)} baseUrl={url} />
         </Modal>
       </Portal>
 

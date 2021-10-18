@@ -1,21 +1,40 @@
 import React, { memo } from "react";
-import { List } from "react-native-paper";
+import { View } from "react-native";
+import { Badge, List } from "react-native-paper";
 
 const ListItem = (props) => {
-  const {id, author, title, onListItemPress } = props;
-
-  console.log(props);
+  const { id, author, title, holdings_available, onListItemPress } = props;
 
   return (
-    <List.Item
+    <View
       style={{
-        marginLeft: -8,
+        flexDirection: 'row',
       }}
-      description={author}
-      title={title}
-      left={props => <List.Icon icon="book" />}
-      onPress={() => onListItemPress(id)}
-    />
+    >
+      <View
+        style={{
+          flex: 2,
+          justifyContent: 'center',
+        }}
+      >
+        <Badge size={24} style={{alignSelf: 'center', backgroundColor: 'darkviolet' }}>{holdings_available}</Badge>
+      </View>
+      <View
+        style={{
+          flex: 14,
+        }}
+      >
+        <List.Item
+          style={{
+            marginLeft: -8,
+          }}
+          description={author}
+          title={title}
+          onPress={() => onListItemPress(id)}
+        />
+      </View>
+
+    </View>
   );
 }
 
