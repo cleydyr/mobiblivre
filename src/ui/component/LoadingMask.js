@@ -12,7 +12,7 @@ export default () => {
         backgroundColor: 'rgba(255, 0, 255, 0)'
       }}
     >
-      <ActivityIndicator animating={true} />
+      <ActivityIndicator animating={true} size={48} />
     </View>
   );
 }

@@ -7,9 +7,8 @@ import {
   WorkSans_400Regular,
   WorkSans_700Bold,
 } from '@expo-google-fonts/work-sans';
-import AppLoading from "expo-app-loading";
 import LoadingMask from "../ui/component/LoadingMask";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 
 export const LibraryContext = createContext();
 
@@ -28,24 +27,26 @@ export const WithLibraryContext = ({ children }) => {
     WorkSans_700Bold,
   });
 
-  if (!fontsLoaded) {
-    return <LoadingMask />
-  }
+  const { width, height } = Dimensions.get("window");
 
   return (
     <>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flex: 1,
-          backgroundColor: 'pink',
-          position: 'absolute',
-        }}
-      >
-        <LoadingMask />
-      </View>
       {children}
+      {
+        !loading.length ||
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height,
+            width,
+            position: 'absolute',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+          }}
+        >
+          <LoadingMask />
+        </View>
+      }
     </>
   );
 }
