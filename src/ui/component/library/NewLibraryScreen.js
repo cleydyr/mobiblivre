@@ -12,6 +12,8 @@ export default ({ navigation }) => {
 
   const [isModalVisible, setModalVisible] = useState(false);
 
+  const [isWaitingForPingResponse, setWaitingForPingResponse] = useState(false);
+
   const handleSaveLibrary = async (library) => {
     if (await pingServer(library.url)) {
       dispatch(addLibraryAsync(library));

@@ -52,9 +52,9 @@ export default ({ navigation }) => {
 
     const cardData = await openBibliographicRecord(url, recordId);
 
-    setShowRecordCard(true);
-
     setCardData(cardData.data);
+
+    setShowRecordCard(true);
 
     dispatch(stopLoading(owner));
   }

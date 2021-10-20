@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator} from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLibrary } from '../../../feature/search/searchSlice';
 import AddButton from '../AddButton';
+import LoadingMask from '../LoadingMask';
 import LibraryList from './LibraryListView';
 import NoLibrary from './NoLibraryView';
 
@@ -26,7 +26,7 @@ export default ({ navigation }) => {
       }}>
         {
           loading.length
-            ? <ActivityIndicator animating={true} />
+            ? <LoadingMask />
             : libraries && libraries.length > 0
               ? <LibraryList {...{ libraries, onLibraryPress: handleLibraryPress }} />
               : <NoLibrary onCreateNewLibrary={() => navigation.navigate('add-library')} />

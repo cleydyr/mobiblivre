@@ -9,6 +9,7 @@ import AddLibraryScreen from "./ui/component/library/NewLibraryScreen";
 import store from './store';
 import { Provider as ReduxProvider } from "react-redux";
 import CatalogueSearchScreen from "./ui/component/library/search/catalogue/CatalogueSearchScreen";
+import LoadingMask from "./ui/component/LoadingMask";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,9 +20,11 @@ export default function App() {
         <Provider>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="list-library">
-              <Stack.Screen name="list-library" component={LibrariesScreen} options={{ title: 'Bibliotecas' }} />
-              <Stack.Screen name="add-library" component={AddLibraryScreen} options={{ title: 'Adicionar Biblioteca' }} />
-              <Stack.Screen name="search-catalogue" component={CatalogueSearchScreen} options={{ title: 'Busca Catalográfica' }} />
+              <Stack.Group>
+                <Stack.Screen name="list-library" component={LibrariesScreen} options={{ title: 'Bibliotecas' }} />
+                <Stack.Screen name="add-library" component={AddLibraryScreen} options={{ title: 'Adicionar Biblioteca' }} />
+                <Stack.Screen name="search-catalogue" component={CatalogueSearchScreen} options={{ title: 'Busca Catalográfica' }} />
+              </Stack.Group>
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

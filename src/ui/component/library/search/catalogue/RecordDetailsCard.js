@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, View } from "react-native";
-import { Button, Card, Divider, IconButton, List, Text, Title } from "react-native-paper";
+import { Button, Card, Divider, List, Text } from "react-native-paper";
 import {
   useFonts,
   WorkSans_100Thin,
@@ -53,6 +53,7 @@ const CardMetadata = ({ name, value }) => {
 
 export default (
   {
+    id,
     attachments,
     title,
     author,
@@ -68,26 +69,6 @@ export default (
     i18n,
   }
 ) => {
-  let [fontsLoaded] = useFonts({
-    WorkSans_100Thin,
-    WorkSans_200ExtraLight,
-    WorkSans_300Light,
-    WorkSans_400Regular,
-    WorkSans_500Medium,
-    WorkSans_600SemiBold,
-    WorkSans_700Bold,
-    WorkSans_800ExtraBold,
-    WorkSans_900Black,
-    WorkSans_100Thin_Italic,
-    WorkSans_200ExtraLight_Italic,
-    WorkSans_300Light_Italic,
-    WorkSans_400Regular_Italic,
-    WorkSans_500Medium_Italic,
-    WorkSans_600SemiBold_Italic,
-    WorkSans_700Bold_Italic,
-    WorkSans_800ExtraBold_Italic,
-    WorkSans_900Black_Italic,
-  });
 
   return (
     <Card>
@@ -144,7 +125,7 @@ export default (
             </View>
             <Divider />
             <List.Accordion
-              title="Outros metadados"
+              title="Mais metadados"
               style={{
                 backgroundColor: 'white',
                 margin: -8
@@ -157,9 +138,16 @@ export default (
                 }}
               >
                 {
-                  fields.map(field => {
+                  fields.map((field, i) => {
                     return (
-                      <CardMetadata name={i18n[`cataloging.tab.record.custom.field_label.biblio_${field.datafield}`]} value={field.value} />
+                      <View
+                        key={i}
+                        style={{
+                          marginBottom: 8
+                        }}
+                      >
+                        <CardMetadata name={i18n[`cataloging.tab.record.custom.field_label.biblio_${field.datafield}`].toUpperCase()} value={field.value} />
+                      </View>
                     )
                   })
                 }
