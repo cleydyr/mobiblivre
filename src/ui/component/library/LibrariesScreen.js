@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator} from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLibrary } from '../../../feature/search/searchSlice';
 import AddButton from '../AddButton';
@@ -11,7 +10,6 @@ export default ({ navigation }) => {
   const dispatch = useDispatch();
 
   const libraries = useSelector(state => state.library.libraries);
-  const loading = useSelector(state => state.loading.status);
 
   const handleLibraryPress = (library) => {
     dispatch(setLibrary(library));
@@ -25,11 +23,9 @@ export default ({ navigation }) => {
         flex: 1,
       }}>
         {
-          loading.length
-            ? <ActivityIndicator animating={true} />
-            : libraries && libraries.length > 0
-              ? <LibraryList {...{ libraries, onLibraryPress: handleLibraryPress }} />
-              : <NoLibrary onCreateNewLibrary={() => navigation.navigate('add-library')} />
+          libraries && libraries.length > 0
+            ? <LibraryList {...{ libraries, onLibraryPress: handleLibraryPress }} />
+            : <NoLibrary onCreateNewLibrary={() => navigation.navigate('add-library')} />
         }
 
       </View>

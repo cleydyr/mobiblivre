@@ -1,19 +1,17 @@
-import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import { Divider } from 'react-native-paper';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Badge, Button, Card, Divider, Headline, Modal, Portal, Subheading, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import { startLoading, stopLoading } from '../../../../../feature/loading/loadingSlice';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';
+import { openBibliographicRecord } from '../../../../../service/library';
 import CatalogueSearchForm from './CatalogueSearchForm';
 import CatalogueSearchListItem from './CatalogueSearchListItem';
 import NoRecordsFoundView from './NoRecordsFoundView';
+import RecordDetailsCard from './RecordDetailsCard';
 
-function renderItem({
-  item: {
-    author,
-    title,
-  }
-}) {
-  return <CatalogueSearchListItem title={title} author={author} />
+const renderItem = (onListItemPress) => ({ item }) => {
+  return <CatalogueSearchListItem {...item} onListItemPress={onListItemPress} />;
 }
 
 function keyExtractor(item) {
@@ -25,53 +23,74 @@ export default ({ navigation }) => {
 
   const {
     records,
-    searchPerformed
+    searchPerformed,
+    library: { url, i18n },
   } = useSelector(state => state.search);
 
-  const loading = useSelector(state => state.loading.status);
+  const [isShowRecordCard, setShowRecordCard] = useState(false);
+  const [cardData, setCardData] = useState({});
+  const [isLoadingMore, setLoadingMore] = useState(false);
 
   const handleSearchSubmit = (keywords) => {
     dispatch(loadSearchResults(keywords));
   }
 
   const handleLoadMore = () => {
-    if (loading.length) {
+    if (isLoadingMore) {
       return;
     }
 
-    dispatch(loadMoreSearchResults)
+    setLoadingMore(true);
+
+    dispatch(loadMoreSearchResults(() => setLoadingMore(false)));
   }
 
-  console.log(`render search screen with ${records.length} records`);
-  console.log(`loading: ${loading}`);
-  console.log(`searchPerformed: ${searchPerformed}`);
+  const onListItemPress = async (recordId) => {
+    const owner = 'open-record';
+
+    dispatch(startLoading(owner));
+
+    const cardData = await openBibliographicRecord(url, recordId);
+
+    setCardData(cardData.data);
+
+    setShowRecordCard(true);
+
+    dispatch(stopLoading(owner));
+  }
 
   return (
-    <CatalogueSearchForm
-      onSearchSubmit={handleSearchSubmit}
-      loading={loading.length}
-    >
-      {
-        searchPerformed && !records.length
-          ? <NoRecordsFoundView />
-          : <FlatList
-            style={styles.formField}
-            data={records}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-            onEndReached={handleLoadMore}
-            onEndReachedThreshold={0.8}
-            maxToRenderPerBatch={8}
-            ItemSeparatorComponent={Divider}
-          />
-      }
-    </CatalogueSearchForm>
+    <>
+      <Portal>
+        <Modal visible={isShowRecordCard} onDismiss={() => setShowRecordCard(false)} >
+          {isShowRecordCard && <RecordDetailsCard {...cardData} onBackPress={() => setShowRecordCard(false)} baseUrl={url} i18n={i18n} />}
+        </Modal>
+      </Portal>
+
+      <CatalogueSearchForm
+        onSearchSubmit={handleSearchSubmit}
+        loading={isLoadingMore}
+      >
+        {
+          searchPerformed && !records.length
+            ? <NoRecordsFoundView />
+            : <FlatList
+              style={styles.formField}
+              data={records}
+              renderItem={renderItem(onListItemPress)}
+              keyExtractor={keyExtractor}
+              onEndReached={handleLoadMore}
+              onEndReachedThreshold={0.8}
+              maxToRenderPerBatch={8}
+              ItemSeparatorComponent={Divider}
+            />
+        }
+      </CatalogueSearchForm>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   formField: {
-    marginLeft: 8,
-    marginRight: 8,
   }
 });

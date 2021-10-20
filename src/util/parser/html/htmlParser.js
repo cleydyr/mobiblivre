@@ -18,6 +18,6 @@ export async function fetchAndselect(url, paths) {
   return paths.map(path => {
     const [node] = select(html)(path);
 
-    return node.data;
+    return node.nodeValue;
   })
 }

@@ -5,6 +5,7 @@ const actions = {
   SEARCH: 'search',
   PAGINATE: 'paginate',
   PING: 'ping',
+  OPEN: 'open',
 };
 
 const modules = {
@@ -39,18 +40,30 @@ export async function addLibrary(library) {
   return newData.libraries;
 }
 
+async function fetchi18n(url, i18nPath) {
+  const i18nResponse = await fetch(`${url}/${i18nPath}`);
+
+  const i18nScript = await i18nResponse.text();
+
+  return JSON.parse(i18nScript.replace('Translations.translations = ', ''));
+}
+
 export async function getLibraryData(url) {
-  const [title, subtitle] = await fetchAndselect(
+  const [title, subtitle, i18nPath] = await fetchAndselect(
     url,
     [
       '/html/body/form/div[1]/div[2]/h1/a/text()',
-      '/html/body/form/div[1]/div[2]/h2/text()'
+      '/html/body/form/div[1]/div[2]/h2/text()',
+      '//script[contains(@src, \'.i18n.js\')]/@src'
     ]
   );
+
+  const i18n = await fetchi18n(url, i18nPath);
 
   return {
     title,
     subtitle,
+    i18n,
   };
 }
 
@@ -117,4 +130,15 @@ export async function pingServer(host) {
   catch (e) {
     return false;
   }
+}
+
+export async function openBibliographicRecord(host, recordId) {
+  return await fetchJSONFromServer(
+    host,
+    modules.CATALOGING_BIBLIOGRAPHIC,
+    actions.OPEN,
+    {
+      id: recordId
+    }
+  );
 }

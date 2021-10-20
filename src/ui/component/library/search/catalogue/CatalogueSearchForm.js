@@ -39,7 +39,7 @@ export default (
       >
         {
           loading
-            ? 'Carregando'
+            ? 'Carregando mais resultados'
             : keywords
               ? 'Buscar'
               : 'Listar Todos'

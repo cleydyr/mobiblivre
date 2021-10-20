@@ -112,18 +112,12 @@ export const loadSearchResults = keywords => async (dispatch, getState) => {
   dispatch(stopLoading(owner));
 }
 
-export const loadMoreSearchResults = async (dispatch, getState) => {
+export const loadMoreSearchResults = (callback) => async (dispatch, getState) => {
   const { search: { library: { url }, page, searchId, pageCount } } = getState();
-
-  console.log('loading more');
 
   if (page === pageCount) {
     return;
   }
-
-  const owner = 'paginate-search';
-
-  dispatch(startLoading(owner));
 
   const result = await paginateCatalographicSearchResults(url, searchId, page + 1);
 
@@ -133,9 +127,9 @@ export const loadMoreSearchResults = async (dispatch, getState) => {
     dispatch(setSearchPerformed(true));
 
     dispatch(appendRecords(records));
-
-    dispatch(stopLoading(owner));
   });
+
+  callback();
 }
 
 export default searchSlice.reducer
