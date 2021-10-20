@@ -2,15 +2,15 @@
   "expo": {
    "name": "MoBiblivre",
    "icon": "./resources/images/logo.png",
-   "version": "0.1.0",
+   "version": "0.2.0",
    "slug": "mobiblivre",
    "ios": {
      "bundleIdentifier": "br.org.biblivre.mobiblivre",
-     "buildNumber": "0.1.0"
+     "buildNumber": "0.2.0"
    },
    "android": {
      "package": "br.org.biblivre.mobiblivre",
-     "versionCode": 2
+     "versionCode": 3
    }
   }
 }
