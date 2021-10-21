@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getLibraries, addLibrary as serviceAddLibrary, getLibraryData } from '../../service/library';
+import { batch } from 'react-redux';
+import {
+  getLibraries,
+  addLibrary as serviceAddLibrary,
+  getLibraryData,
+  deleteLibrary as serviceDeleteLibrary
+} from '../../service/library';
 import { startLoading, stopLoading } from '../loading/loadingSlice';
 
 export const librarySlice = createSlice({
@@ -34,6 +40,20 @@ export const loadLibraries = async dispatch => {
   dispatch(librarySlice.actions.setLibraries(libraries));
 
   dispatch(stopLoading(owner));
+}
+
+export const deleteLibrary = (id) => async dispatch => {
+  const owner = 'library-deleting';
+
+  dispatch(startLoading(owner));
+
+  await serviceDeleteLibrary(id);
+
+  batch(() => {
+    dispatch(loadLibraries);
+
+    dispatch(stopLoading(owner));
+  });
 }
 
 export const addLibraryAsync = library => async dispatch => {

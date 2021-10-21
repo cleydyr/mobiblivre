@@ -40,6 +40,19 @@ export async function addLibrary(library) {
   return newData.libraries;
 }
 
+export async function deleteLibrary(libraryId) {
+  const currentData = await getStoredData();
+
+  const { libraries } = currentData;
+
+  const newData = {
+    ...currentData,
+    libraries: libraries.filter(library => library.id != libraryId),
+  };
+
+  await setStoredData(newData);
+}
+
 async function fetchi18n(url, i18nPath) {
   const i18nResponse = await fetch(`${url}/${i18nPath}`);
 
