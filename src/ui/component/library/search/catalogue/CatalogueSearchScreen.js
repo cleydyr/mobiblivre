@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Badge, Button, Card, Divider, Headline, Modal, Portal, Subheading, Text } from 'react-native-paper';
+import { FlatList } from 'react-native';
+import { Divider, Modal, Portal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLoading, stopLoading } from '../../../../../feature/loading/loadingSlice';
 import { loadMoreSearchResults, loadSearchResults } from '../../../../../feature/search/searchSlice';

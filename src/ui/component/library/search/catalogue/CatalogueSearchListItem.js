@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { Dimensions, View } from "react-native";
-import { Badge, Text, TouchableRipple } from "react-native-paper";
+import { View } from "react-native";
+import { Text, TouchableRipple } from "react-native-paper";
 
 const ListItem = (props) => {
   const { id, author, title, holdings_available, onListItemPress } = props;
