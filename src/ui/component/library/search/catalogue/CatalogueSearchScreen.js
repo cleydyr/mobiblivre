@@ -35,14 +35,16 @@ export default ({ navigation }) => {
     dispatch(loadSearchResults(keywords));
   }
 
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
     if (isLoadingMore) {
       return;
     }
 
     setLoadingMore(true);
 
-    dispatch(loadMoreSearchResults(() => setLoadingMore(false)));
+    await dispatch(loadMoreSearchResults);
+
+    setLoadingMore(false)
   }
 
   const onListItemPress = async (recordId) => {

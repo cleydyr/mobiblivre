@@ -112,7 +112,7 @@ export const loadSearchResults = keywords => async (dispatch, getState) => {
   dispatch(stopLoading(owner));
 }
 
-export const loadMoreSearchResults = (callback) => async (dispatch, getState) => {
+export const loadMoreSearchResults = async (dispatch, getState) => {
   const { search: { library: { url }, page, searchId, pageCount } } = getState();
 
   if (page === pageCount) {
@@ -128,8 +128,6 @@ export const loadMoreSearchResults = (callback) => async (dispatch, getState) =>
 
     dispatch(appendRecords(records));
   });
-
-  callback();
 }
 
 export default searchSlice.reducer
