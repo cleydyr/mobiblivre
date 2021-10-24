@@ -7,7 +7,7 @@ const ListItem = (props) => {
 
   return (
     <TouchableRipple
-      onPress={() => onListItemPress(id)} e
+      onPress={() => onListItemPress(id)}
     >
       <View
         style={{
