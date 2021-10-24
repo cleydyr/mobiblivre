@@ -7,7 +7,7 @@ A mobile app for the Biblivre OPAC.
 - [ ] Predefined (favorite) library
 - [ ] Authentication
 - [ ] Catalog search
-  - [ ] bibliographic
+  - [x] bibliographic
   - [ ] vocabulary
   - [ ] authorities
 - [ ] Self-reservation
