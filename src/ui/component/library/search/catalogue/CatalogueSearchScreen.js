@@ -75,7 +75,6 @@ export default ({ navigation }) => {
           searchPerformed && !records.length
             ? <NoRecordsFoundView />
             : <FlatList
-              style={styles.formField}
               data={records}
               renderItem={renderItem(onListItemPress)}
               keyExtractor={keyExtractor}
@@ -89,8 +88,3 @@ export default ({ navigation }) => {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  formField: {
-  }
-});

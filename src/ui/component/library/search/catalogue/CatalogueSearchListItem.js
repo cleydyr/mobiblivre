@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 import { Badge, Text, TouchableRipple } from "react-native-paper";
 
 const ListItem = (props) => {
@@ -11,30 +11,21 @@ const ListItem = (props) => {
     >
       <View
         style={{
-          height: 72,
+          height: 64
         }}
       >
         <View
           style={{
             marginLeft: 16,
-            marginTop: 16,
             marginRight: 16,
-            position: 'absolute'
-          }}
-        >
-          <Badge size={40} style={{ alignSelf: 'center', backgroundColor: '#018786' }}>{holdings_available}</Badge>
-        </View>
-        <View
-          style={{
-            marginLeft: 72,
           }}
         >
           <View
             style={{
-              position: 'absolute',
-              height: 32,
-              top: 16,
-              paddingRight: 16,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              height: 28,
+              alignItems: 'flex-end'
             }}
           >
             <Text
@@ -43,28 +34,35 @@ const ListItem = (props) => {
                 color: '#232F34',
                 fontFamily: 'WorkSans_600SemiBold',
                 fontSize: 16,
+                flex: 1
               }}
             >
               {title}
             </Text>
             <Text
-              numberOfLines={1}
+              style={{
+                color: '#232F34',
+                fontFamily: 'WorkSans_400Regular',
+                fontSize: 14,
+                opacity: 0.5,
+                paddingLeft: 28,
+              }}
+            >
+              {holdings_available} disp.
+            </Text>
+          </View>
+          <View
+            style={{
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Text
               style={{
                 color: '#232F34',
                 fontFamily: 'WorkSans_400Regular',
                 fontSize: 14,
                 opacity: 0.7,
-              }}
-            >
-              {author}
-            </Text>
-          </View>
-          <View
-            style={{
-              height: 20,
-            }}
-          >
-
+              }}>{author}</Text>
           </View>
         </View>
 
