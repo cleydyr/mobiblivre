@@ -102,8 +102,6 @@ export const loadSearchResults = keywords => async (dispatch, getState) => {
         dispatch(setRecords([]));
       });
     }
-
-
   }
   catch (e) {
     //TODO handle error
